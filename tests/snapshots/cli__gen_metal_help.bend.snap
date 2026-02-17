@@ -1,0 +1,45 @@
+---
+source: tests/golden_tests.rs
+input_file: tests/golden_tests/cli/gen_metal_help.bend
+---
+Compiles the program to standalone Metal and prints to stdout
+
+Usage: bend gen-metal [OPTIONS] <PATH>
+
+Arguments:
+  <PATH>
+          Path to the input file
+
+Options:
+  -O <COMP_OPTS>
+          Enables or disables the given optimizations
+              float_combinators is enabled by default on strict mode.
+          
+          [possible values: all, no-all, eta, no-eta, prune, no-prune, linearize-matches, linearize-matches-alt, no-linearize-matches, float-combinators, no-float-combinators, merge, no-merge, inline, no-inline, check-net-size, no-check-net-size, adt-scott, adt-num-scott, type-check, no-type-check]
+
+  -W, --warn <WARNS>
+          Show the specified compilation warning
+          
+          [possible values: all, irrefutable-match, redundant-match, unreachable-match, unused-definition, repeated-bind, recursion-cycle, import-shadow, missing-main]
+
+  -D, --deny <DENIES>
+          Deny the specified compilation warning
+          
+          [possible values: all, irrefutable-match, redundant-match, unreachable-match, unused-definition, repeated-bind, recursion-cycle, import-shadow, missing-main]
+
+  -A, --allow <ALLOWS>
+          Allow the specified compilation warning
+          
+          [possible values: all, irrefutable-match, redundant-match, unreachable-match, unused-definition, repeated-bind, recursion-cycle, import-shadow, missing-main]
+
+  -v, --verbose
+          
+
+      --hvm-bin <HVM_BIN>
+          HVM command or path to HVM binary
+
+  -e, --entrypoint <ENTRYPOINT>
+          Use other entrypoint rather than main or Main
+
+  -h, --help
+          Print help (see a summary with '-h')

@@ -1,0 +1,2 @@
+run-metal
+tests/golden_tests/cli/run_metal_error.bend

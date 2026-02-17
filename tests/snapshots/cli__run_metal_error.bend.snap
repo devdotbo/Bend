@@ -1,0 +1,7 @@
+---
+source: tests/golden_tests.rs
+input_file: tests/golden_tests/cli/run_metal_error.bend
+---
+[4m[1m[31mErrors:[0m
+The selected HVM binary (`hvm`) does not expose Metal commands.
+Install the Metal-enabled HVM2 build or choose another backend (`run-c`, `run-cu`).
