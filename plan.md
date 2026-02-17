@@ -27,6 +27,7 @@
 - [x] Add Bend CLI tests and snapshots.
 - [x] Run validations and collect results.
 - [x] Add HVM2 benchmark harness for `run-c` vs `run-metal`.
+- [x] Add realistic heavy benchmark preset and scaled workload for Metal/C comparison.
 
 ## Risks
 - Metal backend parity with CUDA may require iterative tuning.
@@ -64,6 +65,7 @@
 - `804f7474` chore(deps): switch hvm pin to forked metal branch
 - `f09699e` (HVM2) fix(cli): hard-fail unsupported metal runtime paths
 - `a51c077` (HVM2) perf: add run-c vs run-metal benchmark harness
+- `e4b2863` (HVM2) perf(bench): add realistic metal-vs-c benchmark suite
 
 ## Notes
 - This file is long-lived and should be updated as milestones complete.
@@ -71,5 +73,7 @@
 - `cargo test -- --test-threads=1` passes in Bend.
 - `bend run-metal` and `bend gen-metal` validate end-to-end against native HVM2 Metal runtime on Apple Silicon.
 - Bend is now pinned to forked HVM2 source `https://github.com/devdotbo/HVM2` at revision `f09699e442927ac9710e6ea6ed9daac37cd72d3a` for native Metal compute runtime, native IO loop, standalone `gen-metal`, and hard-fail unsupported runtime semantics.
-- Benchmark harness is available at `/tmp/HVM2/scripts/bench-metal-vs-c.sh` to compare `run-c` and `run-metal` on shared workloads.
+- Benchmark harness is available at `/tmp/HVM2/scripts/bench-metal-vs-c.sh` with presets:
+  - `realistic` (default): `examples/sum_rec/main.hvm`, `examples/sort_bitonic/main.hvm`, `benchmarks/metal/sum_tree_depth18.hvm`
+  - `stress`: `examples/sort_radix/main.hvm`, `examples/stress/main.hvm`, `examples/sum_tree/main.hvm`
 - HVM2 `cargo test --release` currently reports snapshot instability in upstream tests unrelated to this feature work.
