@@ -60,10 +60,13 @@
 - `d22be94` (HVM2) feat(codegen): emit standalone native metal runtime
 - `d6ea336` (HVM2) feat(runtime): add native metal io execution loop
 - `c59f23d3` chore(deps): repin hvm after native metal io runtime
+- `804f7474` chore(deps): switch hvm pin to forked metal branch
+- `f09699e` (HVM2) fix(cli): hard-fail unsupported metal runtime paths
 
 ## Notes
 - This file is long-lived and should be updated as milestones complete.
 - `cargo test --test golden_tests cli -- --exact` passes in Bend.
 - `cargo test -- --test-threads=1` passes in Bend.
-- Bend is now pinned to forked HVM2 source `https://github.com/devdotbo/HVM2` at revision `d6ea336703863e91facf6e2468b74168de576887` for native Metal compute runtime, native IO loop, and standalone `gen-metal`.
+- `bend run-metal` and `bend gen-metal` validate end-to-end against native HVM2 Metal runtime on Apple Silicon.
+- Bend is now pinned to forked HVM2 source `https://github.com/devdotbo/HVM2` at revision `f09699e442927ac9710e6ea6ed9daac37cd72d3a` for native Metal compute runtime, native IO loop, standalone `gen-metal`, and hard-fail unsupported runtime semantics.
 - HVM2 `cargo test --release` currently reports snapshot instability in upstream tests unrelated to this feature work.
