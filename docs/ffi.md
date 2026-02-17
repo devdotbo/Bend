@@ -55,6 +55,7 @@ def main():
 ## Writing IO dynamic libraries for Bend
 
 Bend IO libraries need to be implemented in C or Cuda (depending on the backend you're targeting) using the HVM API.
+For the current Metal backend, FFI follows the C runtime ABI.
 
 ### Writing libraries for the C runtime
 
@@ -197,6 +198,11 @@ Assuming that it's saved in a file called `libbend_dirs.cu`, we can compile it w
 nvcc -shared -o libbend_dirs.so -I /path/to/hvm/ libbend_dirs.cu
 ```
 
+### Writing libraries for the Metal runtime
+
+The current `run-metal` implementation uses the C runtime ABI for dynamic libraries.
+So, for now, implement and compile Metal-targeted libraries exactly as described in the C runtime section.
+
 ### Compiling Bend programs that use dynamic libraries
 
 To compile the C or Cuda program generated from a Bend program that uses dynamic libraries, we need to use the `-rdynamic` flag to allow the dynamic library to use symbols from the main program.
@@ -211,4 +217,8 @@ gcc -rdynamic -lm my_app.c -o my_app
 # Compiling for Cuda
 bend gen-cu my_app.bend > my_app.cu
 nvcc --compiler-options=-rdynamic my_app.cu -o my_app
+
+# Compiling for Metal (Objective-C++)
+bend gen-metal my_app.bend > my_app.mm
+clang++ my_app.mm -o my_app -framework Foundation -framework Metal
 ```

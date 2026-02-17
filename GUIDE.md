@@ -647,6 +647,12 @@ And, simply as that, the same program now runs in `0.82s`, at a blistering
 `11803.24 MIPS`. That's **181x faster** than the original. Congratulations!
 You're now a thread bender.
 
+If you're on Apple Silicon macOS, you can also run the Metal backend:
+
+```
+bend run-metal main.bend
+```
+
 ~
 
 As a last note, you may have noticed that the compiled version isn't much faster

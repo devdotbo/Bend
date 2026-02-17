@@ -193,7 +193,7 @@ main = (id foo)
 ## Check-net-size
 
 If enabled, checks that the size of each function after compilation has at most 64 HVM nodes.
-This is a memory restriction of the CUDA runtime, if you're not using the `*-cu` you can disable it.
+This is a memory restriction of GPU runtimes (`*-cu` and `*-metal`), if you're not using a GPU backend you can disable it.
 
 Example:
 

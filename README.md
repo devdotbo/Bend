@@ -22,7 +22,7 @@ Bend is powered by the [HVM2](https://github.com/higherorderco/hvm) runtime.
 * The current version may have lower single-core performance.
 * You can expect substantial improvements in performance as we advance our code generation and optimization techniques.
 * We are still working to support Windows. Use [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) as an alternative solution.
-* [We only support NVIDIA Gpus currently](https://github.com/HigherOrderCO/Bend/issues/341).
+* GPU support currently includes CUDA on NVIDIA GPUs and Metal on Apple Silicon macOS (experimental).
 
 
 
@@ -78,9 +78,10 @@ bend run    <file.bend> # uses the C interpreter by default (parallel)
 bend run-rs <file.bend> # uses the Rust interpreter (sequential)
 bend run-c  <file.bend> # uses the C interpreter (parallel)
 bend run-cu <file.bend> # uses the CUDA interpreter (massively parallel)
+bend run-metal <file.bend> # uses the Metal interpreter (massively parallel, Apple Silicon macOS)
 
 # Notes
-# You can also compile Bend to standalone C/CUDA files using gen-c and gen-cu for maximum performance.
+# You can also compile Bend to standalone C/CUDA/Metal files using gen-c, gen-cu and gen-metal.
 # The code generator is still in its early stages and not as mature as compilers like GCC and GHC.
 # You can use the -s flag to have more information on
   # Reductions
@@ -132,6 +133,11 @@ If you have a NVIDIA GPU, you can also run in CUDA (Sequential)
 bend run-cu sequential_sum.bend -s
 ```
 
+If you are on Apple Silicon macOS, you can run in Metal (Sequential)
+```sh
+bend run-metal sequential_sum.bend -s
+```
+
 In this version, the next value to be calculated depends on the previous sum, meaning that it cannot proceed until the current computation is complete. Now, let's look at the easily parallelizable version.
 
 
@@ -179,6 +185,11 @@ bend run-c parallel_sum.bend -s
 If you have a NVIDIA GPU, you can also run in CUDA (Massively parallel)
 ```sh
 bend run-cu parallel_sum.bend -s
+```
+
+If you are on Apple Silicon macOS, you can also run in Metal (Massively parallel)
+```sh
+bend run-metal parallel_sum.bend -s
 ```
 
 In Bend, it can be parallelized by just changing the run command. If your code **can** run in parallel it **will** run in parallel.
