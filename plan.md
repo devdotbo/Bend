@@ -17,6 +17,7 @@
 - [x] Add long-lived `AGENTS.md`.
 - [x] Add long-lived `plan.md`.
 - [x] Implement HVM2 Metal CLI + build + runtime + codegen + tests/docs/CI.
+- [x] Replace Metal C-runtime shim with native Metal compute evaluator.
 - [x] Pin Bend dependency to Metal-enabled HVM2 revision.
 - [x] Add Bend CLI plumbing (`run-metal` / `gen-metal`).
 - [x] Add Bend compiler target + net-size rules + unsupported-runtime preflight.
@@ -52,8 +53,10 @@
 - `4095877` (HVM2) feat(codegen): add gen-metal standalone output
 - `7ff037a` (HVM2) test/docs: add metal validation and docs
 - `fd7efe1` (HVM2) fix(codegen): make gen-metal output compileable
+- `6a8ca2d` (HVM2) feat(runtime): replace metal shim with native metal evaluator
 
 ## Notes
 - This file is long-lived and should be updated as milestones complete.
 - `cargo test -- --test-threads=1` passes in Bend.
+- Bend is now pinned to HVM2 revision `6a8ca2d048d63e461f132afa050f4fad376a83a1` for native Metal compute runtime.
 - HVM2 `cargo test --release` currently reports snapshot instability in upstream tests unrelated to this feature work.

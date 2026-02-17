@@ -27,7 +27,7 @@ cli = ["dep:clap"]
 TSPL = "0.0.13"
 clap = { version = "4.4.1", features = ["derive"], optional = true }
 highlight_error = "0.1.1"
-hvm = { git = "file:///tmp/HVM2", rev = "fd7efe15b65a29af88029f47aa21d7550b0ee73b" }
+hvm = { git = "file:///tmp/HVM2", rev = "6a8ca2d048d63e461f132afa050f4fad376a83a1" }
 indexmap = "2.2.3"
 interner = "0.2.1"
 itertools = "0.11.0"

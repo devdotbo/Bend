@@ -193,7 +193,7 @@ checksum = "809e18805660d7b6b2e2b9f316a5099521b5998d5cba4dda11b5157a21aaef03"
 [[package]]
 name = "hvm"
 version = "2.0.22"
-source = "git+file:///tmp/HVM2?rev=fd7efe15b65a29af88029f47aa21d7550b0ee73b#fd7efe15b65a29af88029f47aa21d7550b0ee73b"
+source = "git+file:///tmp/HVM2?rev=6a8ca2d048d63e461f132afa050f4fad376a83a1#6a8ca2d048d63e461f132afa050f4fad376a83a1"
 dependencies = [
  "TSPL",
  "cc",
