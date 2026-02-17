@@ -19,6 +19,7 @@
 - [x] Implement HVM2 Metal CLI + build + runtime + codegen + tests/docs/CI.
 - [x] Replace Metal C-runtime shim with native Metal compute evaluator.
 - [x] Emit `gen-metal` as standalone Objective-C++ with native Metal runtime.
+- [x] Add native Metal IO loop parity (no C runtime fallback).
 - [x] Pin Bend dependency to Metal-enabled HVM2 revision.
 - [x] Add Bend CLI plumbing (`run-metal` / `gen-metal`).
 - [x] Add Bend compiler target + net-size rules + unsupported-runtime preflight.
@@ -56,9 +57,10 @@
 - `fd7efe1` (HVM2) fix(codegen): make gen-metal output compileable
 - `6a8ca2d` (HVM2) feat(runtime): replace metal shim with native metal evaluator
 - `d22be94` (HVM2) feat(codegen): emit standalone native metal runtime
+- `d6ea336` (HVM2) feat(runtime): add native metal io execution loop
 
 ## Notes
 - This file is long-lived and should be updated as milestones complete.
 - `cargo test -- --test-threads=1` passes in Bend.
-- Bend is now pinned to HVM2 revision `d22be9414e8bfa80f97c9d0f64b61af22432401f` for native Metal compute runtime and standalone `gen-metal`.
+- Bend is now pinned to HVM2 revision `d6ea336703863e91facf6e2468b74168de576887` for native Metal compute runtime, native IO loop, and standalone `gen-metal`.
 - HVM2 `cargo test --release` currently reports snapshot instability in upstream tests unrelated to this feature work.
