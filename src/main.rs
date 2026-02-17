@@ -54,12 +54,16 @@ enum Mode {
   RunC(RunArgs),
   /// Compiles the program and runs it with the Cuda HVM implementation.
   RunCu(RunArgs),
+  /// Compiles the program and runs it with the Metal HVM implementation.
+  RunMetal(RunArgs),
   /// Compiles the program to hvm and prints to stdout.
   GenHvm(GenArgs),
   /// Compiles the program to standalone C and prints to stdout.
   GenC(GenArgs),
   /// Compiles the program to standalone Cuda and prints to stdout.
   GenCu(GenArgs),
+  /// Compiles the program to standalone Metal and prints to stdout.
+  GenMetal(GenArgs),
   /// Runs the lambda-term level desugaring passes.
   Desugar {
     #[arg(
@@ -285,6 +289,7 @@ fn execute_cli_mode(mut cli: Cli) -> Result<(), Diagnostics> {
   let gen_cmd = match &cli.mode {
     Mode::GenC(..) => "gen-c",
     Mode::GenCu(..) => "gen-cu",
+    Mode::GenMetal(..) => "gen-metal",
     _ => "gen",
   };
 
@@ -292,6 +297,7 @@ fn execute_cli_mode(mut cli: Cli) -> Result<(), Diagnostics> {
     Mode::RunC(..) => "run-c",
     Mode::RunRs(..) => "run",
     Mode::RunCu(..) => "run-cu",
+    Mode::RunMetal(..) => "run-metal",
     _ => "run-c",
   };
 
@@ -300,6 +306,8 @@ fn execute_cli_mode(mut cli: Cli) -> Result<(), Diagnostics> {
     Mode::GenC(..) => CompilerTarget::C,
     Mode::RunCu(..) => CompilerTarget::Cuda,
     Mode::GenCu(..) => CompilerTarget::Cuda,
+    Mode::RunMetal(..) => CompilerTarget::Unknown,
+    Mode::GenMetal(..) => CompilerTarget::Unknown,
     _ => CompilerTarget::Unknown,
   };
 
@@ -326,6 +334,7 @@ fn execute_cli_mode(mut cli: Cli) -> Result<(), Diagnostics> {
 
     Mode::RunC(RunArgs { pretty, run_opts, comp_opts, warn_opts, path, arguments })
     | Mode::RunCu(RunArgs { pretty, run_opts, comp_opts, warn_opts, path, arguments })
+    | Mode::RunMetal(RunArgs { pretty, run_opts, comp_opts, warn_opts, path, arguments })
     | Mode::RunRs(RunArgs { pretty, run_opts, comp_opts, warn_opts, path, arguments }) => {
       let CliRunOpts { linear, print_stats } = run_opts;
 
@@ -355,7 +364,8 @@ fn execute_cli_mode(mut cli: Cli) -> Result<(), Diagnostics> {
     }
 
     Mode::GenC(GenArgs { comp_opts, warn_opts, path })
-    | Mode::GenCu(GenArgs { comp_opts, warn_opts, path }) => {
+    | Mode::GenCu(GenArgs { comp_opts, warn_opts, path })
+    | Mode::GenMetal(GenArgs { comp_opts, warn_opts, path }) => {
       let diagnostics_cfg = set_warning_cfg_from_cli(DiagnosticsConfig::default(), warn_opts);
       let opts = compile_opts_from_cli(&comp_opts, compiler_target);
 
