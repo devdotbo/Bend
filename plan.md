@@ -35,6 +35,7 @@
 
 ## Dependencies
 - HVM2 runtime repository: https://github.com/HigherOrderCO/HVM2
+- HVM2 fork used for Bend pin: https://github.com/devdotbo/HVM2/tree/codex/hvm2-metal-runtime
 - Bend repository: https://github.com/HigherOrderCO/Bend
 - Related runtime lines (out of scope for this issue):
   - https://github.com/HigherOrderCO/HVM3
@@ -58,9 +59,11 @@
 - `6a8ca2d` (HVM2) feat(runtime): replace metal shim with native metal evaluator
 - `d22be94` (HVM2) feat(codegen): emit standalone native metal runtime
 - `d6ea336` (HVM2) feat(runtime): add native metal io execution loop
+- `c59f23d3` chore(deps): repin hvm after native metal io runtime
 
 ## Notes
 - This file is long-lived and should be updated as milestones complete.
+- `cargo test --test golden_tests cli -- --exact` passes in Bend.
 - `cargo test -- --test-threads=1` passes in Bend.
-- Bend is now pinned to HVM2 revision `d6ea336703863e91facf6e2468b74168de576887` for native Metal compute runtime, native IO loop, and standalone `gen-metal`.
+- Bend is now pinned to forked HVM2 source `https://github.com/devdotbo/HVM2` at revision `d6ea336703863e91facf6e2468b74168de576887` for native Metal compute runtime, native IO loop, and standalone `gen-metal`.
 - HVM2 `cargo test --release` currently reports snapshot instability in upstream tests unrelated to this feature work.
