@@ -344,6 +344,7 @@ impl OptLevel {
 pub enum CompilerTarget {
   C,
   Cuda,
+  Metal,
   Unknown,
 }
 

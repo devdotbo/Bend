@@ -12,6 +12,7 @@ pub fn check_net_sizes(
 ) -> Result<(), Diagnostics> {
   let (net_size_bound, target_lang) = match target {
     CompilerTarget::Cuda => (MAX_NET_SIZE_CUDA, "Cuda"),
+    CompilerTarget::Metal => (MAX_NET_SIZE_CUDA, "Metal"),
     _ => (MAX_NET_SIZE_C, "C"),
   };
   for (name, net) in &book.defs {

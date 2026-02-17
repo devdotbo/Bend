@@ -306,10 +306,12 @@ fn execute_cli_mode(mut cli: Cli) -> Result<(), Diagnostics> {
     Mode::GenC(..) => CompilerTarget::C,
     Mode::RunCu(..) => CompilerTarget::Cuda,
     Mode::GenCu(..) => CompilerTarget::Cuda,
-    Mode::RunMetal(..) => CompilerTarget::Unknown,
-    Mode::GenMetal(..) => CompilerTarget::Unknown,
+    Mode::RunMetal(..) => CompilerTarget::Metal,
+    Mode::GenMetal(..) => CompilerTarget::Metal,
     _ => CompilerTarget::Unknown,
   };
+
+  ensure_metal_runtime(&cli.mode, &hvm_bin)?;
 
   match cli.mode {
     Mode::Check { comp_opts, warn_opts, path } => {
@@ -411,6 +413,38 @@ fn execute_cli_mode(mut cli: Cli) -> Result<(), Diagnostics> {
       }
     }
   };
+  Ok(())
+}
+
+fn ensure_metal_runtime(mode: &Mode, hvm_bin: &str) -> Result<(), Diagnostics> {
+  if !matches!(mode, Mode::RunMetal(..) | Mode::GenMetal(..)) {
+    return Ok(());
+  }
+
+  if !cfg!(target_os = "macos") || !cfg!(target_arch = "aarch64") {
+    return Err(
+      "Metal mode currently supports only Apple Silicon on macOS.\nUse `bend run-c`/`bend gen-c` on this host."
+        .to_string()
+        .into(),
+    );
+  }
+
+  let out = std::process::Command::new(hvm_bin)
+    .arg("--help")
+    .output()
+    .map_err(|e| format!("Failed to run `{hvm_bin} --help` while validating Metal runtime: {e}"))?;
+
+  let stdout = String::from_utf8_lossy(&out.stdout);
+  if !stdout.contains("run-metal") || !stdout.contains("gen-metal") {
+    return Err(
+      format!(
+        "The selected HVM binary (`{hvm_bin}`) does not expose Metal commands.\n\
+         Install the Metal-enabled HVM2 build or choose another backend (`run-c`, `run-cu`)."
+      )
+      .into(),
+    );
+  }
+
   Ok(())
 }
 
